@@ -25,6 +25,8 @@ public class T_TitleSelect : SceneBase
 
         //ニューロフィードバック
         btnNeuro = gameObject.FindDescendant("btn_NeuroFeedback").AddComponent<ExButton>();
+
+        /*
         //バイオフィードバック
         btnHeartRate = gameObject.FindDescendant("btn_BioFeedback").AddComponent<ExButton>();
         //数息トレーニング
@@ -33,6 +35,8 @@ public class T_TitleSelect : SceneBase
         btnResultSummary = gameObject.FindDescendant("btn_result").AddComponent<ExButton>();
         //セルフチェック
         btnSelfCheck = gameObject.FindDescendant("btn_SelfCheck").AddComponent<ExButton>();
+        */
+
 
         //BlueTooth
         btnBlueTooth = transform.Find("btn_Connect").GetComponent<Button>();
@@ -42,25 +46,31 @@ public class T_TitleSelect : SceneBase
             BluetoothMgr.Instance.Bluetooth();
         });
 
+
         //数息トレーニング
-        imgBrainMeter = gameObject.FindDescendant("btn_NumberBreath").GetComponent<Image>();
+//        imgBrainMeter = gameObject.FindDescendant("btn_NumberBreath").GetComponent<Image>();
 
         textDebug = gameObject.FindDescendant("DebugText").GetComponent<Text>();
         textDebug.gameObject.SetActive(false);
 
         btnNeuro.SetColor(Color.gray);
-        btnHeartRate.SetColor(Color.gray);
-        btnBrainMeter.SetColor(Color.gray);
+
+
+//        btnHeartRate.SetColor(Color.gray);
+//        btnBrainMeter.SetColor(Color.gray);
                      
         var txt_Title = transform.Find("txt_Title_NF").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.Tr_TrainingNeuro].title; ;
                 
+        /*
         txt_Title = transform.Find("txt_Title_BF").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.Tr_TrainingHeartRate].title; ;
                 
         txt_Title = transform.Find("txt_Title_BR").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.Tr_TrainingBreath].title;
-                
+          */
+          
+
         txt_Title = transform.Find("txt_Title_Start").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.T_TitleSelect].title;
     
@@ -81,27 +91,33 @@ public class T_TitleSelect : SceneBase
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningSetting, true);
         }
 
+        /*
         //心拍数バイオフィードバック
         if (btnHeartRate.lastHit2 && bleConnected)
         {
             Tr_TraningSetting.SetPlayTraining(ConstData.EnumScene.Tr_TrainingHeartRate);
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningSetting, true);
         }
+        */
 
+        /*
         //数息トレーニング
         if (btnBrainMeter.lastHit2 && bleConnected)
         {
             Tr_TraningSetting.SetPlayTraining(ConstData.EnumScene.Tr_TrainingBreath);
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningSetting, true);
         }
+        */
 
+        /*
         //履歴
         if (btnResultSummary.lastHit2)
         {
             SceneFunc.ChangeScene(ConstData.EnumScene.R_ResultLog, true);
         }
+        */
 
-
+        /*
         //セルフチェック
         if (btnSelfCheck.lastHit2)
         {
@@ -112,6 +128,8 @@ public class T_TitleSelect : SceneBase
 //            SceneFunc.ChangeScene(ConstData.EnumScene.C_SelfCheck, false);
 //#endif
         }
+        */
+
     }
 
     void UpdateBlueTooth()
@@ -127,14 +145,14 @@ public class T_TitleSelect : SceneBase
         if (bleConnected)
         {
             btnNeuro.SetColor(Color.white);
-            btnHeartRate.SetColor(Color.white);
-            btnBrainMeter.SetColor(Color.white);
+//            btnHeartRate.SetColor(Color.white);
+//            btnBrainMeter.SetColor(Color.white);
         }
         else
         {
             btnNeuro.SetColor(Color.gray);
-            btnHeartRate.SetColor(Color.gray);
-            btnBrainMeter.SetColor(Color.gray);
+//            btnHeartRate.SetColor(Color.gray);
+//            btnBrainMeter.SetColor(Color.gray);
         }
 
 //        textDebug.text = Hot2gApplication.Instance.mode.ToString();
