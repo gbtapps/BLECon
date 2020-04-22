@@ -71,9 +71,11 @@ public class T_TitleSelect : SceneBase
           */
           
 
+        /*
         txt_Title = transform.Find("txt_Title_Start").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.T_TitleSelect].title;
-    
+    */
+
 
         //        WebAPI.Instance.TrainingResultGet();
         //        WebAPI.Instance.SelfCheckResultGet();
@@ -144,15 +146,13 @@ public class T_TitleSelect : SceneBase
 #endif
         if (bleConnected)
         {
-            btnNeuro.SetColor(Color.white);
-//            btnHeartRate.SetColor(Color.white);
-//            btnBrainMeter.SetColor(Color.white);
+//            btnNeuro.SetColor(Color.white);
+
         }
         else
         {
-            btnNeuro.SetColor(Color.gray);
-//            btnHeartRate.SetColor(Color.gray);
-//            btnBrainMeter.SetColor(Color.gray);
+//            btnNeuro.SetColor(Color.gray);
+
         }
 
 //        textDebug.text = Hot2gApplication.Instance.mode.ToString();
