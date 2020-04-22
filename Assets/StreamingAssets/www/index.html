@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Wrapper.js"></script>
+    <script src="libs/p5.js"></script>
+    <script src="libs/addons/p5.dom.min.js"></script>
+    <script src="libs/addons/p5.sound.min.js"></script> <!-- smoothingが2018年1月に削除されるので、setTargetAtTime()を使用すべきとのメッセージ -->
+    <script src="libs/p5.play.js"></script>
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"> -->
+    <link rel="shortcut icon" href="#" />
+    <style>
+      /* @font-face {
+        font-family: 'LocalFont';
+        src: url(./assets/font/mincho.woff) format('woff');
+      } */
+
+      @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        /*src: url(./assets/font/MaterialIcons-Regular.eot);  For IE6-8 */
+        src: local('Material Icons'),
+          local('MaterialIcons-Regular'),
+          url(./assets/font/MaterialIcons-Regular.woff2) format('woff2'),
+          url(./assets/font/MaterialIcons-Regular.woff) format('woff'),
+          url(./assets/font/MaterialIcons-Regular.ttf) format('truetype');
+      }
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;  /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        /* -webkit-font-smoothing: antialiased; */
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        /* -moz-osx-font-smoothing: grayscale; */
+
+        /* Support for IE. */
+        /* font-feature-settings: 'liga'; */
+      }
+
+      body {
+        background: transparent;
+        padding: 0; margin: 0;
+        user-select: none;
+        -webkit-user-select: none;
+        font-family: 'LocalFont';
+      }
+      canvas{
+        vertical-align: bottom;
+      }
+
+      .input-range[type=range]{
+        -webkit-appearance: none;
+        background: transparent;
+      }
+
+      .input-range[type=range]::-webkit-slider-runnable-track {
+        height: 2vh;
+        background: #c5c5c6;
+        border: none;
+        cursor: pointer;
+        border-radius: 50px;
+      }
+
+      .input-range[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 4vh;
+        width: 4vh;
+        border-radius: 50%;
+        background: #ed7769;
+        margin-top: -1vh;
+      }
+
+      .input-range[type=range]:focus {
+        outline: none;
+      }
+
+      .ripple {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ripple .rp-effect {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.4;
+        transform: scale(0);
+        background: #000000;
+        animation: ripple 500ms;
+        pointer-events: none;
+      }
+
+      @-webkit-keyframes ripple {
+        to {
+          opacity: 0;
+          transform: scale(2.0);
+        }
+      }
+
+      @keyframes ripple {
+        to {
+          opacity: 0;
+          transform: scale(2.0);
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <script src="dist/app.js"></script>
+  </body>
+
+</html>

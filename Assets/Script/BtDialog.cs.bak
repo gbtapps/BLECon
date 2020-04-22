@@ -1,0 +1,83 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BtDialog : SingletonMonoBehaviour<BtDialog>
+{
+    List<Toggle> m_toggleList = new List<Toggle>();
+    ExButton button;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    public void OpenDialog(string last,List<string> list)
+    {
+        transform.Find("ConnectBG").gameObject.SetActive(true);
+        var baseTransform = transform.Find("ConnectBG").Find("ConnectDialog");
+        baseTransform.Find("Text").GetComponent<Text>().text = "Last connect:\n" + last;
+        var content = baseTransform.Find("Scroll View").Find("Viewport").Find("Content");
+        var toggle = content.Find("Toggle").GetComponent<Toggle>();
+        content.GetComponent<ToggleGroup>().allowSwitchOff = true;
+        bool first = true;
+        foreach (var dev in list)
+        {
+            Toggle newToggle = toggle;
+            if (first)
+            {
+                //  一個目はある奴を使う
+                first = false;
+            }
+            else
+            {
+                newToggle = Instantiate(toggle, content, false);
+                m_toggleList.Add(newToggle);
+            }
+            newToggle.transform.Find("Label").GetComponent<Text>().text = dev;
+
+            //  最後につないでたのをOnに
+            if(dev == last)
+            {
+                newToggle.isOn = true;
+            }
+            else
+            {
+                newToggle.isOn = false;
+            }
+        }
+        content.GetComponent<ToggleGroup>().allowSwitchOff = false;
+
+        button = GameObject.Find("Ok").AddComponent<ExButton>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (button && button.lastHit2)
+        {
+            var baseTransform = transform.Find("ConnectBG").Find("ConnectDialog");
+            var content = baseTransform.Find("Scroll View").Find("Viewport").Find("Content");
+            baseTransform.Find("Text").GetComponent<Text>().text = "hit!";
+            string dev = null;
+            foreach (var t in content.GetComponent<ToggleGroup>().ActiveToggles())
+            {
+                if (t.isOn)
+                {
+                    dev = t.transform.Find("Label").GetComponent<Text>().text;
+                }
+            }
+            if (dev != null)
+            {
+                Hot2gApplication.Instance.Connecting(dev, () => { }, () => { }, () => { });
+            }
+            foreach (var t in m_toggleList)
+            {
+                Destroy(t.gameObject);
+            }
+            m_toggleList.Clear();
+            transform.Find("ConnectBG").gameObject.SetActive(false);
+        }
+    }
+}
