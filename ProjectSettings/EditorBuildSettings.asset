@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MFN/T_TitleSelect.unity
     guid: 77e8f3d6a9dd5b6448e29240bcddff93
   - enabled: 1
-    path: Assets/Scenes/MFN/C_SelfCheck.unity
-    guid: 36e1718058ccc7b45bd97a827fc82f4a
-  - enabled: 1
     path: Assets/Scenes/MFN/R_DailyTrainingResult.unity
     guid: e2f11d4aea61a104bbef400bff185b58
   - enabled: 1
@@ -20,15 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MFN/Tr_TraningSetting.unity
     guid: 787ed3308252d504abf5ef6f4f859b9e
-  - enabled: 1
-    path: Assets/Scenes/MFN/Tr_TrainingHeartRate.unity
-    guid: 13250149311abc547afde6b016476b3c
-  - enabled: 1
-    path: Assets/Scenes/MFN/R_ResultLog.unity
-    guid: 8b4fb263821378b4db096c6ec7ad1c2a
-  - enabled: 1
-    path: Assets/Scenes/MFN/Tr_TrainingBreath.unity
-    guid: 20f14525540767242ae4056a0a70fb70
   - enabled: 1
     path: Assets/Scenes/MFN/Tr_TrainingNeuro.unity
     guid: 2e73bf16af52681479868d9bd587ec48
