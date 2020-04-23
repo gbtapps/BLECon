@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+//using DG.Tweening;
 
 public class AirPlane : MonoBehaviour
 {
@@ -81,18 +81,18 @@ public class AirPlane : MonoBehaviour
 
     private void animator1()
     {
-        Sequence sequence = DOTween.Sequence();
+//        Sequence sequence = DOTween.Sequence();
         float y0 = transform.localPosition.y;
         y0 = 0;
         float dy = 50;
         float t = 1f;
                 
-        sequence.Append(transform.DOLocalMoveY(y0-dy, t).SetEase(Ease.OutCubic)).SetRelative();
-        sequence.Append(transform.DOLocalMoveY(y0 + dy, t).SetEase(Ease.InCubic)).SetRelative();
-        sequence.Append(transform.DOLocalMoveY(y0 + dy, t).SetEase(Ease.OutCubic)).SetRelative();
-        sequence.Append(transform.DOLocalMoveY(y0 - dy, t).SetEase(Ease.InCubic)).SetRelative();
-        sequence.SetLoops(-1);
-        sequence.Play();
+//        sequence.Append(transform.DOLocalMoveY(y0-dy, t).SetEase(Ease.OutCubic)).SetRelative();
+//        sequence.Append(transform.DOLocalMoveY(y0 + dy, t).SetEase(Ease.InCubic)).SetRelative();
+//        sequence.Append(transform.DOLocalMoveY(y0 + dy, t).SetEase(Ease.OutCubic)).SetRelative();
+//        sequence.Append(transform.DOLocalMoveY(y0 - dy, t).SetEase(Ease.InCubic)).SetRelative();
+//        sequence.SetLoops(-1);
+//        sequence.Play();
 
         //transform.DOLocalMoveY(transform.localPosition.y-50, 5).SetEase(Ease.InOutBounce);
     }
@@ -181,7 +181,7 @@ public class AirPlane : MonoBehaviour
     public void StartBreathFadeOut()
     {
         //move.Move(1080,1920,5);
-        transform.DOLocalMove(new Vector3(1080, 1920, 5), 2).SetEase(Ease.InCubic);
+//        transform.DOLocalMove(new Vector3(1080, 1920, 5), 2).SetEase(Ease.InCubic);
 
         cnt = 0;
         isFadeOut = true;
