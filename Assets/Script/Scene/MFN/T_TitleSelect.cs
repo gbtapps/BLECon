@@ -19,8 +19,13 @@ public class T_TitleSelect : SceneBase
 
     Text textDebug;
 
+    [SerializeField]Text AppVersion;
+
     void Start()
     {
+
+        AppVersion.text = Application.version;
+
         CommonHeaderMfn.Instance.SetView(false);
 
         //ニューロフィードバック
