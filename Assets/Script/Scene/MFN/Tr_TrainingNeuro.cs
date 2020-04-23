@@ -27,8 +27,10 @@ public class Tr_TrainingNeuro : SceneBase
 
     STATE state;
 
+    /*
     Timer timer;
     AirPlane airPlane;
+    */
 
     //--------------------------------------------------------
     //脳波関連
@@ -38,7 +40,7 @@ public class Tr_TrainingNeuro : SceneBase
 
     float cnt = 0;
 
-    RingMgr ringMgr;
+//    RingMgr ringMgr;
 
     int level=0;
 
@@ -81,7 +83,9 @@ public class Tr_TrainingNeuro : SceneBase
         //-------------------------------------
         //開始！
         state = STATE.START;
-        airPlane.StartAppear();
+
+        //        airPlane.StartAppear();
+
         firstStart = true;
 
         
@@ -152,24 +156,24 @@ public class Tr_TrainingNeuro : SceneBase
             if (Hot2gApplication.Instance.mode == Hot2gApplication.eMode.RecieveData)//- Measureing data in stable status
             {
                 cnt += Time.deltaTime;
-                airPlane.SetTextCnt((5 - cnt).ToString("F0"));
+//                airPlane.SetTextCnt((5 - cnt).ToString("F0"));
             }
             else
             {
                 cnt = 0;//- counter reset because of unstable situation
-                airPlane.SetTextCnt("Oo.");
+//                airPlane.SetTextCnt("Oo.");
             }
         }
         else//- NOT On the head
         {
             cnt = 0;//- counter reset because of unstable situation
-            airPlane.SetTextCnt("*");
+//            airPlane.SetTextCnt("*");
         }
 
         //if (airPlane.isAppear == true && cnt >= 5)
         if (cnt >= 5)
         {
-            airPlane.SetVisibleTextCnt(false);
+//            airPlane.SetVisibleTextCnt(false);
 
             //Debug.Log("77779: " + avgXbValue);
             //avgXbValue = GetXBValue();//- Average from 4sec to 5sec in buffer
@@ -178,7 +182,7 @@ public class Tr_TrainingNeuro : SceneBase
 
             cnt = 0;
             state = STATE.ADD;//- 
-            ringMgr.SetNewGame(level);
+//            ringMgr.SetNewGame(level);
         }
 
 
@@ -191,14 +195,19 @@ public class Tr_TrainingNeuro : SceneBase
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
         }
 
+        /*
         if (timer.time <= 0)
         {
 //            SetResultData();
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
             state = STATE.FIN;
         }
+        */
+
+
     }
 
+  
     
 
 
