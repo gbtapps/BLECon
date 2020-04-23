@@ -72,29 +72,7 @@ public class Tr_TrainingNeuro : SceneBase
 #if !BLUE_DEBUG
         BrainDataMgr.Start(BrainDataFeedbacker.Type.NEURO);
 #endif
-        timer = gameObject.FindDescendant("Timer").GetComponent<Timer>();
-        if (Tr_TraningSetting.timeSec > 1)
-        {
-            timer.SetTimeSecond(Tr_TraningSetting.timeSec);
-        }
-        else
-        {
-            timer.SetTimeSecond(60);
-        }
-
-        timer.is_on = true;
-
-        airPlane = gameObject.FindDescendant("AirPlane").GetComponent<AirPlane>();
-        airPlane.Init();
-        airPlane.maxHalfRange = AREA_HEIGHT / 2;
-
-        good = gameObject.FindDescendant("Good").GetComponent<Image>();
-        good.gameObject.SetActive(false);
-        fade = gameObject.FindDescendant("Fade").GetComponent<Image>();
-
-        ringMgr = new RingMgr();
-        ringMgr.Init();
-
+        
         level = 9;
 
         totalClearNum = 0;
@@ -106,21 +84,7 @@ public class Tr_TrainingNeuro : SceneBase
         airPlane.StartAppear();
         firstStart = true;
 
-        //ダイアログ
-        dialog = gameObject.FindDescendant("DialogToTop");
-        btnDialogYes = dialog.FindDescendant<ExButton>("btnYes");
-        btnDialogNo = dialog.FindDescendant<ExButton>("btnNo");
-        btnDialogCloseCol = dialog.FindDescendant<ExButton>("btnDialogCloseCol");
-        dialog.gameObject.SetActive(false);
-
-        //デバッグ
-        debugArea = gameObject.FindDescendant("DebugArea");
-        btnDebugNext = gameObject.FindDescendant("BtnDebugNext").AddComponent<ExButton>();
-        btnDebugUp = gameObject.FindDescendant("BtnDebugUp").AddComponent<ExButton>();
-        btnDebugDown = gameObject.FindDescendant("BtnDebugDown").AddComponent<ExButton>();
-        textDebug = gameObject.FindDescendant("DebugText").GetComponent<Text>();
-        textDebug.text = "Activeness:0";
-        debugArea.gameObject.SetActive(false);
+        
 
         //-
         txtRingNumberCounter = gameObject.FindDescendant("TXT_RING_NUMBER_COUNTER").GetComponent<Text>();
@@ -135,12 +99,7 @@ public class Tr_TrainingNeuro : SceneBase
 
     private void Update()
     {
-        UpdateDialog();
-
-        //Debug.Log("77770: " + state);
-
-        //- Update ring num counter
-        txtRingNumberCounter.text = ringMgr.clearNum.ToString() + "/10";
+        
 
         switch (state)
         {
@@ -152,16 +111,16 @@ public class Tr_TrainingNeuro : SceneBase
                 state = STATE.MOVE;
                 break;
             case STATE.MOVE:
-                UpdateMove();
+//                UpdateMove();
                 break;
             case STATE.GOOD:
-                UpdateGood();
+//                UpdateGood();
                 break;
             case STATE.FADE_OUT:
-                UpdateFadeOut();
+//                UpdateFadeOut();
                 break;
             case STATE.FADE_IN:
-                UpdateFadeIn();
+//                UpdateFadeIn();
                 break;
             case STATE.FIN:
                 break;
@@ -176,12 +135,16 @@ public class Tr_TrainingNeuro : SceneBase
 
     }
 
+
+
+
     //紙飛行機登場。この隙に5秒間の脳波の平均値を取得
     void UpdateStart()
     {
 
         //紙飛行機
-        airPlane.UpdateApper();
+//        airPlane.UpdateApper();
+        
         //脳波
         //OnHead状態で5秒間に変更
         if (Hot2gApplication.Instance.state2 == Hot2gApplication.eState.OnHead)
@@ -224,136 +187,19 @@ public class Tr_TrainingNeuro : SceneBase
 #if !BLUE_DEBUG
             BrainDataMgr.End();
 #endif
-            SetResultData();
+//            SetResultData();
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
         }
 
         if (timer.time <= 0)
         {
-            SetResultData();
+//            SetResultData();
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
             state = STATE.FIN;
         }
     }
 
-    void UpdateMove()
-    {
-        UpdateDebug();
-
-        ringMgr.HitCheck(airPlane.transform.localPosition);
-        ringMgr.UpdateExec();
-
-        if (btnDebugNext.lastHit2)
-        {
-#if !BLUE_DEBUG
-            BrainDataMgr.End();
-#endif
-            SetResultData();
-            SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
-        }
-
-        //- Height of the air plane
-        cnt += Time.deltaTime;
-        if (cnt > 0.01f)
-        {
-            cnt = 0;
-
-            float xbValue = GetXBValue();
-
-            float _length = xbValue - avgXbValue;
-            float _plane = _length * (AREA_HEIGHT / 2) / SCREEN_EDGE_DISTANCE;
-
-            airPlane.SetXbValue(_plane);
-            airPlane.UpdateExec();
-
-            if (airPlane.pos.y <= -AREA_HEIGHT / 2 + AIR_PLANE_HEIGHT / 2
-                || airPlane.pos.y >= AREA_HEIGHT / 2 - AIR_PLANE_HEIGHT / 2)
-            {
-                cnt = 0;
-                state = STATE.FADE_OUT;
-            }
-        }
-
-        if (timer.time <= 0)
-        {
-#if !BLUE_DEBUG
-            BrainDataMgr.End();
-#endif
-            SetResultData();
-            SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
-            state = STATE.FIN;
-        }
-
-        //1セット終了
-        if (ringMgr.oneSetClear)
-        {
-            cnt = 0;
-            level--;
-            if (level < 0) { level = 0; }
-            totalClearNum++;
-            if (ringMgr.comboNum>=RingMgr.ONE_SET)
-            {
-                fullComboClearNum++;
-            }
-
-            good.gameObject.SetActive(true);
-            state = STATE.GOOD;
-        }
-    }
-
-    void UpdateDebug()
-    {
-        if (btnDebugUp.isPress)
-        {
-            debugXbValue += Time.deltaTime / 10;
-        }
-        if (btnDebugDown.isPress)
-        {
-            debugXbValue -= Time.deltaTime/10;
-        }
-
-    }
-
-    void UpdateGood()
-    {
-        cnt += Time.deltaTime;
-        if (cnt >= 0.7f)
-        {
-            cnt = 0;
-            good.gameObject.SetActive(false);
-            state = STATE.FADE_OUT;
-        }
-    }
-
-    void UpdateFadeOut()
-    {
-        cnt += Time.deltaTime;
-        fade.color = new Color(0,0,0,cnt/ (1.3f / 2));
-        if (cnt >= 1.3f/2)
-        {
-            cnt = 1.3f / 2;
-            fade.color = new Color(0,0,0,1);
-            airPlane.ResetPosY();
-            ringMgr.Destroy();
-            debugXbValue = 0.2f;
-
-            airPlane.SetVisibleTextCnt(true);
-
-            state = STATE.FADE_IN;
-        }
-    }
-
-    void UpdateFadeIn()
-    {
-        cnt -= Time.deltaTime;
-        fade.color = new Color(0,0,0,cnt/ (1.3f / 2));
-        if (cnt <= 0)
-        {
-            cnt = 0;
-            fade.color = new Color(0,0,0,0);
-            state = STATE.START;
-        }
-    }
+    
 
 
     float GetXBValue()
@@ -380,51 +226,8 @@ public class Tr_TrainingNeuro : SceneBase
         return _value;
     }
 
-    //トップ画面に戻るダイアログ
-    void UpdateDialog()
-    {
-        if (dialog.activeSelf)
-        {
-            if (btnDialogYes.lastHit2)
-            {
-#if !BLUE_DEBUG
-            BrainDataMgr.End();
-#endif
-                SceneFunc.ChangeScene(ConstData.EnumScene.T_TitleSelect, false);
-                state = STATE.FIN;
-                return;
-            }
-            if (btnDialogNo.lastHit2 || btnDialogCloseCol.lastHit2)
-            {
-                dialog.SetActive(false);
-            }
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                dialog.SetActive(true);
-            }
-        }
-    }
+    
 
 
-    void SetResultData()
-    {
-        if (totalClearNum >= 5)
-        {
-            CommonData.resultStar = (int)Mathf.Floor(((float)fullComboClearNum / (float)totalClearNum) / 0.2f);
-        }
-        else
-        {
-            CommonData.resultStar = 0;
-        }
 
-        CommonData.resultScore = ringMgr.score;
-        CommonData.resultPerfect = ringMgr.totalperfect;
-        CommonData.resultDate = 0;
-        CommonData.resultTime = 0;
-        CommonData.trainingEndTime = System.DateTime.Now;
-
-    }
 }
