@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Newtonsoft.Json.Converters;
+//using Newtonsoft.Json.Converters;
 
 public class JSFunc
 {

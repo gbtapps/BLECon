@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,7 +34,7 @@ abstract class RecentDropdown:MonoBehaviour
         m_recent.Clear();
         if (rec != "" && rec != "{}")
         {
-            m_recent = JsonConvert.DeserializeObject<List<string>>(rec);
+  //          m_recent = JsonConvert.DeserializeObject<List<string>>(rec);
             int i = 0;
             foreach (string s in m_recent)
             {
@@ -94,8 +94,8 @@ abstract class RecentDropdown:MonoBehaviour
             m_recent.RemoveAt(m_recent.Count-1);
         }
 
-        var json = JsonConvert.SerializeObject(m_recent);
-        PlayerPrefs.SetString(PrefsKey, json);
+    //    var json = JsonConvert.SerializeObject(m_recent);
+//        PlayerPrefs.SetString(PrefsKey, json);
         PlayerPrefs.Save();
     }
 }
