@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UIExtention;
+//using UIExtention;
 using Random = UnityEngine.Random;
 
 public class BMBrainMgr
@@ -549,6 +549,7 @@ public class BMBrainMgr
         return color_list[act];
     }
 
+    /*
     public static GradationMaterial BrainLine(Gradation gradation, List<int> Rates)
     {
         GradationMaterial gradationMaterial = ScriptableObject.CreateInstance<GradationMaterial>();
@@ -635,6 +636,8 @@ public class BMBrainMgr
 
         return gradationMaterial;
     }
+    */
+
 
     static int Clamp(int val, int min, int max)
     {
