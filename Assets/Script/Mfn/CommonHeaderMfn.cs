@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityCipher;
+//using UnityCipher;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -36,6 +36,7 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
     {
         title = GameObject.Find("Text_Title").GetComponent<Text>();
 
+        /* moritomi
         var id = PlayerPrefs.GetString("id", null);
         var password = PlayerPrefs.GetString("password", null);
         if (password != null && password != "")
@@ -44,6 +45,8 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
             decrypt = RijndaelEncryption.Decrypt(password, ConstData.CryptKey);
             m_LoginWait = false;
         }
+        */
+
         UI = gameObject.FindDescendant("UI");
 
 #if DEBUG
