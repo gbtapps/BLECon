@@ -87,17 +87,6 @@ public class Tr_TraningResult : SceneBase
         Debug.Log("Save:" + _filename);
         CommonData.trainingSaveData.Add(_data);
 
-        /* moritomi
-        //サーバに保存
-        TrainingResultPostObject _postObj = new TrainingResultPostObject();
-        _postObj.xb01id = Hot2gApplication.Instance.API.getHot2gIf().getHot2gDevInfo().valDevId;
-        _postObj.training_id = CommonData.resultType.ToString();
-        _postObj.trained = CommonData.trainingEndTime;
-        _postObj.time = (int)(CommonData.trainingEndTime-CommonData.trainingStartTime).TotalSeconds;
-        _postObj.score = CommonData.resultScore;
-        WebAPI.Instance.TrainingResultPost(_postObj);
-        */
-
 
     }
 }
