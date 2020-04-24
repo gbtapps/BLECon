@@ -646,10 +646,12 @@ public class BMBrainMgr
         return val;
     }
 
+
     //  課題スコアを年齢で補正する
     public static int CalcScore(int rawScore)
     {
         int[] range = new int[2];
+        /*
         if (CommonData.userObject.age < 36)
         {
             range[0] = CommonData.training.scoringSetting.young.min;
@@ -670,6 +672,9 @@ public class BMBrainMgr
             range[0] = CommonData.training.scoringSetting.silver.min;
             range[1] = CommonData.training.scoringSetting.silver.max;
         }
+
+    */
+
         int score = (int)((double)(rawScore - range[0]) / (range[1] - range[0]) * 100);
 
         return Clamp(score, 0, 100);

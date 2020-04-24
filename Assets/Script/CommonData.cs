@@ -28,18 +28,11 @@ public class CommonData : SingletonMonoBehaviour<CommonData>
     public static int BMCategoryNew = 0;
 
     public static bool logout = false;
-    //  ログインした時に返ってくる情報
-    public static UserObject userObject;
 
-    //  トレーニングのユーザーデータ
-    public static UserPreferencesObject userPreferences;
     //  トレーニングのデータ
-    public static Training training;
     public static int trainingNum;
-    public static List<Training> trainings;
+
     //  紛らわしい、全トレーニングのデータ取ってくるときと微妙に型が違うので注意
-    public static List<Training> trainingsAll;
-    public static Dictionary<string, Training> trainingsDic = new Dictionary<string, Training>();
 
     public static int level = 1;
     public static int correctNum;
@@ -49,15 +42,10 @@ public class CommonData : SingletonMonoBehaviour<CommonData>
     public static string FreeSceneName="";
     public static string SceneID = "";
 
-    public static Dictionary<int, List<BrainResultData>> brainResultData;
-
-    //  セルフチェックの項目名
-    public static ChecksObject[] selfCheckObject { get; set; }
     //  セルフチェックのデータ(今回の分だけ)
     public static int[] selfCheckValue;
     public static Dictionary<string, int> selfCheckDic = new Dictionary<string, int>();
 
-    public static CheckSequencesObject selfCheckSequenceObject;
 
     public static bool firstCheck = false;
 

@@ -13,6 +13,9 @@ class WebAPI : SingletonMonoBehaviour<WebAPI>
     //  UTCとの差分
     TimeSpan localOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
 
+
+
+    /* moritomi
     public void TrainingResultPost(TrainingResultPostObject obj, Action<ResponseObject, UnityWebRequest> cb = null)
     {
         var json = LitJson.JsonMapper.ToJson(obj);
@@ -21,14 +24,18 @@ class WebAPI : SingletonMonoBehaviour<WebAPI>
             cb?.Invoke(resobj, www);
         }));
     }
+    */
 
+        /* moritomi
     public void TrainingResultGet()
     {
         StartCoroutine(Get("/TrainingResult", (response, www) => {
             ResponseObject resobj = new ResponseObject();
         }));
     }
+    */
 
+        /* moritomi
     public void SelfCheckResultPost(SelfCheckResultPostObject obj, Action<ResponseObject, UnityWebRequest> cb = null)
     {
         var json = LitJson.JsonMapper.ToJson(obj);
@@ -37,12 +44,16 @@ class WebAPI : SingletonMonoBehaviour<WebAPI>
             cb?.Invoke(resobj, www);
         }));
     }
+    */
+
+        /* moritomi
     public void SelfCheckResultGet()
     {
         StartCoroutine(Get("/SelfCheckResult", (response, www) => {
             ResponseObject resobj = new ResponseObject();
         }));
     }
+    */
 
 
     IEnumerator Post(string path, string postData, Action<string, UnityWebRequest> cb = null, string method = null, string url = null, bool token = true)
