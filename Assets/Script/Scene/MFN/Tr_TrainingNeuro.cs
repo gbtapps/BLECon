@@ -91,11 +91,11 @@ public class Tr_TrainingNeuro : SceneBase
         
 
         //-
-        txtRingNumberCounter = gameObject.FindDescendant("TXT_RING_NUMBER_COUNTER").GetComponent<Text>();
+//        txtRingNumberCounter = gameObject.FindDescendant("TXT_RING_NUMBER_COUNTER").GetComponent<Text>();
 
 
 #if !BLUE_DEBUG
-        debugArea.gameObject.SetActive(false);
+//        debugArea.gameObject.SetActive(false);
 #endif
 
         CommonData.trainingStartTime = System.DateTime.Now;
@@ -186,6 +186,8 @@ public class Tr_TrainingNeuro : SceneBase
         }
 
 
+        /*
+
         if (btnDebugNext.lastHit2)
         {
 #if !BLUE_DEBUG
@@ -194,6 +196,8 @@ public class Tr_TrainingNeuro : SceneBase
 //            SetResultData();
             SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
         }
+        */
+
 
         /*
         if (timer.time <= 0)
