@@ -34,9 +34,11 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
     // Start is called before the first frame update
     void Awake()
     {
-        title = GameObject.Find("Text_Title").GetComponent<Text>();
 
         /* moritomi
+
+        title = GameObject.Find("Text_Title").GetComponent<Text>();
+
         var id = PlayerPrefs.GetString("id", null);
         var password = PlayerPrefs.GetString("password", null);
         if (password != null && password != "")
@@ -74,15 +76,21 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
         DontDestroyOnLoad(transform.parent);
 //        CommonData.SceneHistory.Push(CommonData.NowScene);
         ChangeScene(CommonData.NowScene);
+
+
+
     }
 
     //  シーンに対応した内容に書き換える
     public void ChangeScene(ConstData.EnumScene scene)
     {
-        title.text = GetTitle(scene);
+
+//        title.text = GetTitle(scene);
 
         return;
 
+
+        /*
         var header = ConstData.HeaderType[scene];
 
         var textLeft = transform.Find("TitleText_Left").GetComponent<Text>();
@@ -146,8 +154,15 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
         {
             CommonData.SceneHistory.Clear();
         }
+
+
+        */
+
+
+
     }
 
+    /* moritomi
     string GetTitle(ConstData.EnumScene scene)
     {
         //return "test";
@@ -167,7 +182,10 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
         }
         return ret;
     }
+    */
 
+
+        /*
     public void ErrorDialog(string message,Callback cb = null )
     {
         var bg = transform.Find("ErrorCanvas");
@@ -183,6 +201,9 @@ public class CommonHeaderMfn : SingletonMonoBehaviour<CommonHeaderMfn>
             cb?.Invoke();
         });
     }
+    */
+
+
 
     // Update is called once per frame
     void Update()
