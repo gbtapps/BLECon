@@ -8,11 +8,12 @@ using System.Linq;
 //脳活動を上げ下げするやつ！
 public class Tr_TrainingNeuro : SceneBase
 {
-    const float AIR_PLANE_HEIGHT = 100;
-    const float AREA_HEIGHT = 1920 - AIR_PLANE_HEIGHT;
 
-    const float SCREEN_EDGE_DISTANCE = 0.2f; //画面端の位置 脳活動値での距離
-    const float RING_DISTANCE = 0.05f; //リングの位置 脳活動値での距離(要らないかも)
+//    const float AIR_PLANE_HEIGHT = 100;
+//    const float AREA_HEIGHT = 1920 - AIR_PLANE_HEIGHT;
+
+//    const float SCREEN_EDGE_DISTANCE = 0.2f; //画面端の位置 脳活動値での距離
+//    const float RING_DISTANCE = 0.05f; //リングの位置 脳活動値での距離(要らないかも)
 
     enum STATE
     {
@@ -29,7 +30,6 @@ public class Tr_TrainingNeuro : SceneBase
 
     /*
     Timer timer;
-    AirPlane airPlane;
     */
 
     //--------------------------------------------------------
@@ -40,32 +40,29 @@ public class Tr_TrainingNeuro : SceneBase
 
     float cnt = 0;
 
-//    RingMgr ringMgr;
-
     int level=0;
 
-    Image good;
-    Image fade;
-
-    int totalClearNum = 0;
-    int fullComboClearNum = 0;
 
     bool firstStart=true;
 
+    /*
     //ダイアログ
     GameObject dialog;
     ExButton btnDialogCloseCol;
     ExButton btnDialogYes;
     ExButton btnDialogNo;
+    */
 
+        /*
     //デバッグ
     GameObject debugArea;
     ExButton btnDebugNext;
     ExButton btnDebugUp;
     ExButton btnDebugDown;
     Text textDebug;
+    */
 
-    Text txtRingNumberCounter;
+//    Text txtRingNumberCounter;
 
     void Start()
     {
@@ -77,28 +74,22 @@ public class Tr_TrainingNeuro : SceneBase
         
         level = 9;
 
-        totalClearNum = 0;
-        fullComboClearNum = 0;
 
         //-------------------------------------
         //開始！
         state = STATE.START;
 
-        //        airPlane.StartAppear();
 
         firstStart = true;
 
-        
-
-        //-
-//        txtRingNumberCounter = gameObject.FindDescendant("TXT_RING_NUMBER_COUNTER").GetComponent<Text>();
 
 
 #if !BLUE_DEBUG
-//        debugArea.gameObject.SetActive(false);
+        //        debugArea.gameObject.SetActive(false);
 #endif
 
-        CommonData.trainingStartTime = System.DateTime.Now;
+        //        CommonData.trainingStartTime = System.DateTime.Now;
+
     }
 
     private void Update()
@@ -130,83 +121,50 @@ public class Tr_TrainingNeuro : SceneBase
                 break;
         }
 
-//#if !BLUE_DEBUG
-//            textDebug.text = "Av:" + avgXbValue.ToString("F3");
-//            textDebug.text += "Ac:" + xbValue.ToString("F3");
-//            textDebug.text += "Ne:" + _plane.ToString("F3");
-//            textDebug.text += "st2:" + Hot2gApplication.Instance.state2.ToString();
-//#endif
 
     }
-
-
 
 
     //紙飛行機登場。この隙に5秒間の脳波の平均値を取得
     void UpdateStart()
     {
 
-        //紙飛行機
-//        airPlane.UpdateApper();
         
-        //脳波
         //OnHead状態で5秒間に変更
         if (Hot2gApplication.Instance.state2 == Hot2gApplication.eState.OnHead)
         {
             if (Hot2gApplication.Instance.mode == Hot2gApplication.eMode.RecieveData)//- Measureing data in stable status
             {
                 cnt += Time.deltaTime;
-//                airPlane.SetTextCnt((5 - cnt).ToString("F0"));
+
             }
             else
             {
                 cnt = 0;//- counter reset because of unstable situation
-//                airPlane.SetTextCnt("Oo.");
+
             }
         }
         else//- NOT On the head
         {
             cnt = 0;//- counter reset because of unstable situation
-//            airPlane.SetTextCnt("*");
+
+
         }
 
-        //if (airPlane.isAppear == true && cnt >= 5)
+
+        //デルタタイムで5秒経過した処理
         if (cnt >= 5)
         {
-//            airPlane.SetVisibleTextCnt(false);
 
-            //Debug.Log("77779: " + avgXbValue);
             //avgXbValue = GetXBValue();//- Average from 4sec to 5sec in buffer
             avgXbValue = (float)Hot2gApplication.Instance.m_nfb.calcActivenessFromBufferedUsingLastData(10);//- ave last 1 sec (10points)
-            //Debug.Log("77779: " + avgXbValue);
+
 
             cnt = 0;
             state = STATE.ADD;//- 
-//            ringMgr.SetNewGame(level);
+
+
         }
-
-
-        /*
-
-        if (btnDebugNext.lastHit2)
-        {
-#if !BLUE_DEBUG
-            BrainDataMgr.End();
-#endif
-//            SetResultData();
-            SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
-        }
-        */
-
-
-        /*
-        if (timer.time <= 0)
-        {
-//            SetResultData();
-            SceneFunc.ChangeScene(ConstData.EnumScene.Tr_TraningResult, false);
-            state = STATE.FIN;
-        }
-        */
 
 
     }
@@ -218,7 +176,7 @@ public class Tr_TrainingNeuro : SceneBase
     float GetXBValue()
     {
 #if !BLUE_DEBUG
-        //            float _value = (float)BMBrainMgr.getCurrentActiveness();
+
         float _value = BrainDataMgr.GetValue();
 #else
         float _value = debugXbValue;
@@ -227,10 +185,11 @@ public class Tr_TrainingNeuro : SceneBase
         return _value;
     }
 
+
     float GetXBValue(int startIdx)
     {
 #if !BLUE_DEBUG
-        //            float _value = (float)BMBrainMgr.getCurrentActiveness();
+
         float _value = BrainDataMgr.GetValue(startIdx);
 #else
         float _value = debugXbValue;
