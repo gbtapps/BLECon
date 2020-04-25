@@ -45,24 +45,6 @@ public class Tr_TrainingNeuro : SceneBase
 
     bool firstStart=true;
 
-    /*
-    //ダイアログ
-    GameObject dialog;
-    ExButton btnDialogCloseCol;
-    ExButton btnDialogYes;
-    ExButton btnDialogNo;
-    */
-
-        /*
-    //デバッグ
-    GameObject debugArea;
-    ExButton btnDebugNext;
-    ExButton btnDebugUp;
-    ExButton btnDebugDown;
-    Text textDebug;
-    */
-
-//    Text txtRingNumberCounter;
 
     void Start()
     {
@@ -77,49 +59,20 @@ public class Tr_TrainingNeuro : SceneBase
 
         //-------------------------------------
         //開始！
-        state = STATE.START;
 
 
         firstStart = true;
 
 
 
-#if !BLUE_DEBUG
-        //        debugArea.gameObject.SetActive(false);
-#endif
-
-        //        CommonData.trainingStartTime = System.DateTime.Now;
-
     }
 
     private void Update()
     {
-        
 
-        switch (state)
-        {
-            case STATE.START:
-                UpdateStart();
-                break;
-            case STATE.ADD:
-//                ringMgr.AddOneSet(level);
-                state = STATE.MOVE;
-                break;
-            case STATE.MOVE:
-//                UpdateMove();
-                break;
-            case STATE.GOOD:
-//                UpdateGood();
-                break;
-            case STATE.FADE_OUT:
-//                UpdateFadeOut();
-                break;
-            case STATE.FADE_IN:
-//                UpdateFadeIn();
-                break;
-            case STATE.FIN:
-                break;
-        }
+
+        UpdateStart();
+
 
 
     }
@@ -143,6 +96,8 @@ public class Tr_TrainingNeuro : SceneBase
                 cnt = 0;//- counter reset because of unstable situation
 
             }
+
+
         }
         else//- NOT On the head
         {
@@ -161,7 +116,7 @@ public class Tr_TrainingNeuro : SceneBase
 
 
             cnt = 0;
-            state = STATE.ADD;//- 
+
 
 
         }
