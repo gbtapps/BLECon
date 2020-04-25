@@ -7,7 +7,7 @@ public class T_TitleSelect : SceneBase
 {
     ExButton btnNeuro;          //ニューロフィードバック
 
-    Image imgBrainMeter;
+//    Image imgBrainMeter;
 
     Button btnBlueTooth;
 
@@ -16,6 +16,7 @@ public class T_TitleSelect : SceneBase
     Text textDebug;
 
     [SerializeField]Text AppVersion;
+
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class T_TitleSelect : SceneBase
         //BlueTooth
         btnBlueTooth = transform.Find("btn_Connect").GetComponent<Button>();
 
+
         BluetoothMgr.Instance.SetButton(btnBlueTooth);
         btnBlueTooth.onClick.AddListener(() => {
             BluetoothMgr.Instance.Bluetooth();
@@ -44,9 +46,11 @@ public class T_TitleSelect : SceneBase
         btnNeuro.SetColor(Color.gray);
 
 
-                     
+        /*             
         var txt_Title = transform.Find("txt_Title_NF").GetComponent<Text>();
         txt_Title.text = ConstData.HeaderType[ConstData.EnumScene.Tr_TrainingNeuro].title; ;
+        */
+
                 
     }
 

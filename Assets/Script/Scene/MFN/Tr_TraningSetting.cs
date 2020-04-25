@@ -20,16 +20,12 @@ public class Tr_TraningSetting : SceneBase
 
     }
 
+
     public static ConstData.EnumScene GetPlaytraining()
     {
         return playTraining;
     }
 
-    //トレーニング時間
-//    public static float timeSec { get; private set; }
-
-    //    Text textOverview;
-    //    Slider slider;
 
     ExButton btnStart;
 
@@ -40,12 +36,15 @@ public class Tr_TraningSetting : SceneBase
         CommonHeaderMfn.Instance.SetView(true);
 
 
-    btnStart = gameObject.FindDescendant("Btn_Start").AddComponent<ExButton>();
+        btnStart = gameObject.FindDescendant("Btn_Start").AddComponent<ExButton>();
         
 
     
     }
-          
+    
+    
+
+
     private void Update()
     {
 
@@ -54,4 +53,8 @@ public class Tr_TraningSetting : SceneBase
             SceneFunc.ChangeScene(playTraining, false);
         }
     }
+
+
+
+
 }
