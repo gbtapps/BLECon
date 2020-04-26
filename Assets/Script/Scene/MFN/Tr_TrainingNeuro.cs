@@ -9,11 +9,11 @@ using System.Linq;
 public class Tr_TrainingNeuro : SceneBase
 {
 
-//    const float AIR_PLANE_HEIGHT = 100;
-//    const float AREA_HEIGHT = 1920 - AIR_PLANE_HEIGHT;
+    //    const float AIR_PLANE_HEIGHT = 100;
+    //    const float AREA_HEIGHT = 1920 - AIR_PLANE_HEIGHT;
 
-//    const float SCREEN_EDGE_DISTANCE = 0.2f; //画面端の位置 脳活動値での距離
-//    const float RING_DISTANCE = 0.05f; //リングの位置 脳活動値での距離(要らないかも)
+    //    const float SCREEN_EDGE_DISTANCE = 0.2f; //画面端の位置 脳活動値での距離
+    //    const float RING_DISTANCE = 0.05f; //リングの位置 脳活動値での距離(要らないかも)
 
     enum STATE
     {
@@ -40,10 +40,15 @@ public class Tr_TrainingNeuro : SceneBase
 
     float cnt = 0;
 
-    int level=0;
+    int level = 0;
 
 
-    bool firstStart=true;
+    bool firstStart = true;
+
+
+
+    //デバッグ
+    [SerializeField] Text BrainFlow;
 
 
     void Start()
@@ -53,7 +58,7 @@ public class Tr_TrainingNeuro : SceneBase
 #if !BLUE_DEBUG
         BrainDataMgr.Start(BrainDataFeedbacker.Type.NEURO);
 #endif
-        
+
         level = 9;
 
 
@@ -73,6 +78,7 @@ public class Tr_TrainingNeuro : SceneBase
 
         UpdateStart();
 
+        UpdateMove();
 
 
     }
@@ -82,7 +88,7 @@ public class Tr_TrainingNeuro : SceneBase
     void UpdateStart()
     {
 
-        
+
         //OnHead状態で5秒間に変更
         if (Hot2gApplication.Instance.state2 == Hot2gApplication.eState.OnHead)
         {
@@ -111,10 +117,13 @@ public class Tr_TrainingNeuro : SceneBase
         if (cnt >= 5)
         {
 
+            //着けている時間が5秒越えたかどうかだけ判断するロジック
+
             //avgXbValue = GetXBValue();//- Average from 4sec to 5sec in buffer
             avgXbValue = (float)Hot2gApplication.Instance.m_nfb.calcActivenessFromBufferedUsingLastData(10);//- ave last 1 sec (10points)
 
 
+            //
             cnt = 0;
 
 
@@ -124,11 +133,42 @@ public class Tr_TrainingNeuro : SceneBase
 
     }
 
-  
-    
 
 
-    float GetXBValue()
+    void UpdateMove()
+    {
+
+
+        //- Height of the air plane
+        cnt += Time.deltaTime;
+        if (cnt > 0.01f)
+        {
+            cnt = 0;
+
+            float xbValue = GetXBValue();
+            float _length = xbValue - avgXbValue;
+
+            BrainFlow.text = _length + "\n";
+
+        }
+
+        /*
+        if (timer.time <= 0)
+        {
+            BrainDataMgr.End();
+
+
+        }
+        */
+
+
+    }
+
+
+
+
+
+            float GetXBValue()
     {
 #if !BLUE_DEBUG
 

@@ -161,6 +161,7 @@ public class BrainDataFeedbacker
         {
             _debugText1.text = "buffer1\n";
             double[] _buf1 = buffer1.ToArray();
+
             for (int i = 0; i < _buf1.Length; i++)
             {
                 _debugText1.text += "buf1[" + i + "]" + _buf1[i].ToString("F2") + "\n";
@@ -206,6 +207,8 @@ public class BrainDataFeedbacker
 
     public double calcActivenessFromBufferedUsingLastData(int indexLastTo)
     {
+
+
         //仕様書p20の3 ③バッファ２の平均値を飛行機の高さに使用
         ///バッファ2をAnalyseHelper.movingAverage(filteredL, filteredL.Length - 1)を使って平均化した値が飛行機の位置Yになります。 
         double activeness = double.NaN;

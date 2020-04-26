@@ -10,7 +10,7 @@ class SaveData : SingletonMonoBehaviour<SaveData>
 {
     //  保存するディレクトリ
     static string path;
-    static readonly string prefix = "mindful_";
+    static readonly string prefix = "InBrainBloodFlow_";
     static readonly string ext = ".dat";
 
     private void Start()
