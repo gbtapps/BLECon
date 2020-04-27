@@ -20,13 +20,11 @@ public class Tr_TrainingNeuro : SceneBase
         START,
         ADD,
         MOVE,
-        GOOD,
-        FADE_OUT,
-        FADE_IN,
         FIN
     }
 
     STATE state;
+
 
     /*
     Timer timer;
@@ -38,17 +36,24 @@ public class Tr_TrainingNeuro : SceneBase
     float avgXbValue = 0.2f;
 
 
+    //タイムマネジメント
     float cnt = 0;
+    [SerializeField] Text SpentTime;
+    [SerializeField] Text cntValue;
+
+    //取得データマネジメント
+    List<float> BloodFlows = new List<float>();
+        //デバッグ
+    [SerializeField] Text DataCount;
+    [SerializeField] Text BrainFlow;
+    [SerializeField] Text XbValue;
+    [SerializeField] Text AvgXbValue;
 
     int level = 0;
-
-
     bool firstStart = true;
 
 
 
-    //デバッグ
-    [SerializeField] Text BrainFlow;
 
 
     void Start()
@@ -64,6 +69,7 @@ public class Tr_TrainingNeuro : SceneBase
 
         //-------------------------------------
         //開始！
+        state = STATE.START;
 
 
         firstStart = true;
@@ -75,16 +81,33 @@ public class Tr_TrainingNeuro : SceneBase
     private void Update()
     {
 
+        switch (state)
+        {
+            case STATE.START:
+                UpdateStart();
+                break;
+            case STATE.ADD:
+                //                ringMgr.AddOneSet(level);
+                state = STATE.MOVE;
+                break;
+            case STATE.MOVE:
+                UpdateMove();
+                break;
+            case STATE.FIN:
+                break;
+        }
 
-        UpdateStart();
 
-        UpdateMove();
+
+
 
 
     }
 
 
     //紙飛行機登場。この隙に5秒間の脳波の平均値を取得
+    //↑よくわからん
+
     void UpdateStart()
     {
 
@@ -92,9 +115,11 @@ public class Tr_TrainingNeuro : SceneBase
         //OnHead状態で5秒間に変更
         if (Hot2gApplication.Instance.state2 == Hot2gApplication.eState.OnHead)
         {
+
             if (Hot2gApplication.Instance.mode == Hot2gApplication.eMode.RecieveData)//- Measureing data in stable status
             {
                 cnt += Time.deltaTime;
+                SpentTime.text = cnt.ToString();
 
             }
             else
@@ -108,7 +133,7 @@ public class Tr_TrainingNeuro : SceneBase
         else//- NOT On the head
         {
             cnt = 0;//- counter reset because of unstable situation
-
+            
 
         }
 
@@ -117,7 +142,11 @@ public class Tr_TrainingNeuro : SceneBase
         if (cnt >= 5)
         {
 
-            //着けている時間が5秒越えたかどうかだけ判断するロジック
+            cntValue.text = cnt.ToString();
+
+
+            //着けている時間が5秒越えた以降に5秒毎にavgXBValueの値を更新
+
 
             //avgXbValue = GetXBValue();//- Average from 4sec to 5sec in buffer
             avgXbValue = (float)Hot2gApplication.Instance.m_nfb.calcActivenessFromBufferedUsingLastData(10);//- ave last 1 sec (10points)
@@ -125,6 +154,7 @@ public class Tr_TrainingNeuro : SceneBase
 
             //
             cnt = 0;
+            state = STATE.ADD;//- 
 
 
 
@@ -148,7 +178,21 @@ public class Tr_TrainingNeuro : SceneBase
             float xbValue = GetXBValue();
             float _length = xbValue - avgXbValue;
 
-            BrainFlow.text = _length + "\n";
+            XbValue.text += xbValue.ToString()+"\n";
+            AvgXbValue.text += avgXbValue.ToString() + "\n";
+
+
+            BrainFlow.text += _length + "\n";
+            BloodFlows.Add(_length);
+
+            DataCount.text = BloodFlows.Count.ToString();
+
+            if ((BloodFlows.Count % 50) == 0)
+            {
+                BrainFlow.text = "";
+                XbValue.text = "";
+                AvgXbValue.text = "";
+            }
 
         }
 
