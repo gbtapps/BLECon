@@ -266,11 +266,12 @@ public class GameMgr : MonoBehaviour
 
             case eMode.LoadingWait:
 			{
-                
+                /* moritomi
 				if( !LayoutFileMgr.isBaseLoadDone )
 				{
 					return;
 				}
+                */
 
                 if( SpriteBankMgr.Instance.isLoading )
                 {
